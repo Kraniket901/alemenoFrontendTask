@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { enrollCourse, removeEnrollment } from '../redux/actions';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { IconButton, InputBase, Paper } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
@@ -11,13 +20,11 @@ const CourseList = () => {
   const enrolledCourses = useSelector((state) => state.enrolledCourses);
 
   useEffect(() => {
-    // Fetch courses from courseModel (dummy data)
-    setCourses(allCourses); // Use courses from Redux store
+    setCourses(allCourses);
   }, [allCourses]);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
-    // Filter courses based on search term for name or instructor
     const filteredCourses = allCourses.filter(
       (course) =>
         course.name.toLowerCase().includes(term) ||
@@ -33,36 +40,60 @@ const CourseList = () => {
 
   const handleEnrollToggle = (course) => {
     if (isCourseEnrolled(course.id)) {
-      // Dispatch the removeEnrollment action if already enrolled
       dispatch(removeEnrollment(course.id));
     } else {
-      // Dispatch the enrollCourse action if not enrolled
       dispatch(enrollCourse(course));
     }
   };
 
   return (
     <div>
-      <h1>Course Listing Page</h1>
-      <input
-        type="text"
-        placeholder="Search by course name or instructor"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-      <ul>
+      <h1 className='m-[20px] text-3xl uppercase font-semibold'>Course Listing Page</h1>
+      <Paper
+        component="form"
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, m: '20px' }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search by course name or instructor"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+
+      <div className='flex flex-wrap justify-start'>
         {courses.map((course) => (
-          <li key={course.id}>
+          <Card sx={{ width: 400, margin: 2 }} key={course.id} >
             <Link to={`/course/${course.id}`}>
-              {course.name} - {course.instructor}
+              <CardMedia
+                sx={{ height: 240 }}
+                image={course.thumbnail}
+                title="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {course.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  By - {course.instructor} <br />
+                  Status: {course.enrollmentStatus}
+                </Typography>
+              </CardContent>
             </Link>
-            <p>Status: {course.enrollmentStatus}</p>
-            <button onClick={() => handleEnrollToggle(course)}>
-              {isCourseEnrolled(course.id) ? 'Unenroll' : 'Enroll'}
-            </button>
-          </li>
+            <CardActions className='flex justify-between'>
+              <Button color={isCourseEnrolled(course.id) ? 'error' : 'primary'} variant="contained" size="small" style={{margin:"5px"}} onClick={() => handleEnrollToggle(course)}>
+                {isCourseEnrolled(course.id) ? 'Unenroll' : 'Enroll'}
+              </Button>
+              <Typography variant="body2" color="text.secondary">
+                <FavoriteBorderIcon color='primary' /> {course.likes}
+              </Typography>
+            </CardActions>
+          </Card>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

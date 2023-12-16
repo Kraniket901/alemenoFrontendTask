@@ -2,13 +2,16 @@ const courseModel = [
   {
     id: 1,
     name: 'Introduction to React Native',
+    likes: 12,
     instructor: 'John Doe',
     description: 'Learn the basics of React Native development and build your first mobile app.',
     enrollmentStatus: 'Open',
-    thumbnail: 'your.image.here', // Link to the course thumbnail
+    thumbnail: 'https://img.freepik.com/premium-psd/youtube-video-thumbnail-start-trading-today_475351-168.jpg',
     duration: '8 weeks',
     schedule: 'Tuesdays and Thursdays, 6:00 PM - 8:00 PM',
     location: 'Online',
+    dueDate:'25th November, 2023',
+    progress:'25',
     prerequisites: ['Basic JavaScript knowledge', 'Familiarity with React'],
     syllabus: [
       {
@@ -21,31 +24,21 @@ const courseModel = [
         topic: 'Building Your First App',
         content: 'Creating a simple mobile app using React Native components.',
       },
-      // Additional weeks and topics...
-    ],
-    students: [
-      {
-        id: 101,
-        name: 'Alice Johnson',
-        email: 'alice@example.com',
-      },
-      {
-        id: 102,
-        name: 'Bob Smith',
-        email: 'bob@example.com',
-      },
     ],
   },
   {
     id: 2,
     name: 'Advanced JavaScript',
+    likes: 4,
     instructor: 'Jane Doe',
     description: 'Deep dive into advanced JavaScript concepts.',
     enrollmentStatus: 'Open',
-    thumbnail: 'your.image.here',
+    thumbnail: 'https://img.freepik.com/premium-psd/youtube-video-thumbnail-start-trading-today_475351-168.jpg',
     duration: '6 weeks',
     schedule: 'Mondays and Wednesdays, 7:00 PM - 9:00 PM',
     location: 'Online',
+    dueDate:'25th November, 2023',
+    progress:'50',
     prerequisites: ['Intermediate JavaScript knowledge'],
     syllabus: [
       {
@@ -59,16 +52,31 @@ const courseModel = [
         content: 'Working with Promises and Async/Await.',
       },
     ],
-    students: [
+  },
+  {
+    id: 3,
+    name: 'Advanced JavaScript 2',
+    likes : 10,
+    instructor: 'Jane Doe',
+    description: 'Deep dive into advanced JavaScript concepts.',
+    enrollmentStatus: 'Open',
+    thumbnail: 'https://img.freepik.com/premium-psd/youtube-video-thumbnail-start-trading-today_475351-168.jpg',
+    duration: '6 weeks',
+    schedule: 'Mondays and Wednesdays, 7:00 PM - 9:00 PM',
+    location: 'Online',
+    dueDate:'25th November, 2023',
+    progress:'75',
+    prerequisites: ['Intermediate JavaScript knowledge'],
+    syllabus: [
       {
-        id: 103,
-        name: 'Charlie Brown',
-        email: 'charlie@example.com',
+        week: 1,
+        topic: 'Closures and Scope',
+        content: 'Understanding closures and lexical scope.',
       },
       {
-        id: 104,
-        name: 'Diana Ross',
-        email: 'diana@example.com',
+        week: 2,
+        topic: 'Asynchronous JavaScript',
+        content: 'Working with Promises and Async/Await.',
       },
     ],
   },

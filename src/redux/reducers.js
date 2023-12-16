@@ -26,6 +26,7 @@ const saveState = (state) => {
 const initialState = {
   allCourses: courseModel,
   enrolledCourses: loadState()?.enrolledCourses || [], // Load enrolled courses from storage
+  completedCourses: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -44,6 +45,31 @@ const rootReducer = (state = initialState, action) => {
         enrolledCourses: state.enrolledCourses.filter((course) => course.id !== action.payload),
       };
       break;
+    case 'MARK_COURSE_AS_COMPLETED':
+      const completedCourseId = action.payload;
+      console.log('Completed Course ID:', completedCourseId);
+      nextState = {
+        ...state,
+        enrolledCourses: state.enrolledCourses.map((course) =>
+          course.id === completedCourseId ? { ...course, completed: true } : course
+        ),
+        completedCourses: [...state.completedCourses, completedCourseId],
+      };
+      console.log('Updated Completed Courses:', nextState.completedCourses);
+      break;
+
+      case 'REMOVE_COURSE_FROM_COMPLETED':
+  const removedCompletedCourseId = action.payload;
+  nextState = {
+    ...state,
+    completedCourses: state.completedCourses.filter((id) => id !== removedCompletedCourseId),
+    enrolledCourses: state.enrolledCourses.map((course) =>
+      course.id === removedCompletedCourseId ? { ...course, completed: false } : course
+    ),
+  };
+  break;
+
+
     default:
       nextState = state;
   }

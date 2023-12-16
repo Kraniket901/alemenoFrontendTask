@@ -32,8 +32,8 @@ app.get('/', (req, res) => {
 app.get('/likes', async (req, res) => {
   const { id } = req.query;
   const coll = mongoose.connection.collection('courses');
-  const result = await coll.findOne({'_id': parseInt(id)});
-  res.json({'likes': result.likes})
+  const result = await coll.findOne({ 'id': parseInt(id) });
+  res.json({ 'likes': result.likes })
 })
 
 app.listen(port, () => {
