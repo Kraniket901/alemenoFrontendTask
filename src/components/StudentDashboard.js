@@ -17,22 +17,28 @@ const StudentDashboard = () => {
   }, []);
 
   const enrollInCourse = (courseId) => {
+    // Check if the course is already enrolled
+    if (enrolledCourses.some((course) => course.id === courseId)) {
+      alert('You are already enrolled in this course.');
+      return;
+    }
+
     // Simulating enrolling in a course
     // In a real application, you'd make a request to your server to update enrollment status
     // axios.post('your_enrollment_api', { courseId });
 
     // Simulated logic (replace with actual logic)
-    const updatedCourses = allCourses.map((course) => {
-      if (course.id === courseId) {
-        return { ...course, enrollmentStatus: 'Enrolled' };
-      }
-      return course;
-    });
+    const enrolledCourse = allCourses.find((course) => course.id === courseId);
+    setEnrolledCourses((prevEnrolledCourses) => [...prevEnrolledCourses, enrolledCourse]);
+  };
 
-    setEnrolledCourses((prevEnrolledCourses) => [
-      ...prevEnrolledCourses,
-      ...updatedCourses.filter((course) => course.id === courseId),
-    ]);
+  const removeFromEnrolledCourses = (courseId) => {
+    // Simulating removing from enrolled courses
+    // In a real application, you'd make a request to your server to update enrollment status
+    // axios.post('your_remove_enrollment_api', { courseId });
+
+    // Simulated logic (replace with actual logic)
+    setEnrolledCourses((prevEnrolledCourses) => prevEnrolledCourses.filter((course) => course.id !== courseId));
   };
 
   return (
@@ -45,6 +51,9 @@ const StudentDashboard = () => {
             <h3>{course.name}</h3>
             <p>Instructor: {course.instructor}</p>
             <p>Status: {course.enrollmentStatus}</p>
+            <button onClick={() => removeFromEnrolledCourses(course.id)}>
+              Remove
+            </button>
           </li>
         ))}
       </ul>
@@ -56,8 +65,8 @@ const StudentDashboard = () => {
             <h3>{course.name}</h3>
             <p>Instructor: {course.instructor}</p>
             <p>Status: {course.enrollmentStatus}</p>
-            <button onClick={() => enrollInCourse(course.id)} disabled={course.enrollmentStatus === 'Enrolled'}>
-              Enroll
+            <button onClick={() => enrollInCourse(course.id)} disabled={enrolledCourses.some((enrolledCourse) => enrolledCourse.id === course.id)}>
+              {enrolledCourses.some((enrolledCourse) => enrolledCourse.id === course.id) ? 'Enrolled' : 'Enroll'}
             </button>
           </li>
         ))}
