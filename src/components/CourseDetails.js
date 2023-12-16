@@ -1,10 +1,16 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import courseModel from '../courseModel'; // Update the path accordingly
+import { useDispatch, useSelector } from 'react-redux';
+import { enrollCourse, removeEnrollment } from '../redux/actions';
 
 const CourseDetails = () => {
   const { id } = useParams();
-  const course = courseModel.find((course) => course.id === parseInt(id, 10)); // Find the course by id
+  const dispatch = useDispatch();
+  const allCourses = useSelector((state) => state.allCourses);
+  const enrolledCourses = useSelector((state) => state.enrolledCourses);
+
+  // Find the course by id
+  const course = allCourses.find((course) => course.id === parseInt(id, 10));
 
   // Check if the course is not found
   if (!course) {
@@ -15,6 +21,18 @@ const CourseDetails = () => {
       </div>
     );
   }
+
+  const isCourseEnrolled = enrolledCourses.some((enrolledCourse) => enrolledCourse.id === course.id);
+
+  const handleEnroll = () => {
+    // Dispatch the enrollCourse action if not enrolled
+    dispatch(enrollCourse(course));
+  };
+
+  const handleUnenroll = () => {
+    // Dispatch the removeEnrollment action if already enrolled
+    dispatch(removeEnrollment(course.id));
+  };
 
   return (
     <div>
@@ -43,7 +61,13 @@ const CourseDetails = () => {
           </li>
         ))}
       </ul>
-      <Link to="/">Back to Course List</Link>
+      <p>Status: {isCourseEnrolled ? 'Enrolled' : 'Not Enrolled'}</p>
+      {isCourseEnrolled ? (
+        <button onClick={handleUnenroll}>Unenroll</button>
+      ) : (
+        <button onClick={handleEnroll}>Enroll</button>
+      )}
+      <Link to="/"><p>Back to Course List</p></Link>
     </div>
   );
 };
