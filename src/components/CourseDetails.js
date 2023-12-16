@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { enrollCourse, removeEnrollment } from '../redux/actions';
@@ -8,6 +8,19 @@ const CourseDetails = () => {
   const dispatch = useDispatch();
   const allCourses = useSelector((state) => state.allCourses);
   const enrolledCourses = useSelector((state) => state.enrolledCourses);
+  const [likes, setLikes] = useState(0);
+
+  useEffect(() => {
+    const fetchLikes = async () => {
+      const res = await fetch('http://localhost:5000/likes?id=1', {
+        method: 'GET'
+      });
+      const result = await res.json();
+      console.log(result);
+      setLikes(result.likes);
+    }
+    fetchLikes();
+  }, []);
 
   // Find the course by id
   const course = allCourses.find((course) => course.id === parseInt(id, 10));
