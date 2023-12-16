@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import courseModel from '../courseModel'; // Update the path accordingly
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch courses from the dummy API or Firebase
-    axios.get('your_api_endpoint').then((response) => {
-      setCourses(response.data);
-    });
+    // Fetch courses from courseModel (dummy data)
+    setCourses(courseModel.students); // Replace with actual data
   }, []);
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    // Implement search logic based on course name and instructor
+    const term = e.target.value.toLowerCase();
+    // Filter courses based on search term for name or instructor
+    const filteredCourses = courseModel.students.filter(
+      (course) =>
+        course.name.toLowerCase().includes(term) ||
+        course.instructor.toLowerCase().includes(term)
+    );
+    setCourses(filteredCourses);
+    setSearchTerm(term);
   };
 
   return (
