@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import courseModel from '../courseModel'; // Update the path accordingly
+import { useDispatch, useSelector } from 'react-redux';
+import { enrollCourse, removeEnrollment } from '../redux/actions';
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const dispatch = useDispatch();
+  const allCourses = useSelector((state) => state.allCourses);
+  const enrolledCourses = useSelector((state) => state.enrolledCourses);
 
   useEffect(() => {
     // Fetch courses from courseModel (dummy data)
-    setCourses(courseModel); // Replace with actual data
-  }, []);
+    setCourses(allCourses); // Use courses from Redux store
+  }, [allCourses]);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     // Filter courses based on search term for name or instructor
-    const filteredCourses = courseModel.filter(
+    const filteredCourses = allCourses.filter(
       (course) =>
         course.name.toLowerCase().includes(term) ||
         course.instructor.toLowerCase().includes(term)
     );
     setCourses(filteredCourses);
     setSearchTerm(term);
+  };
+
+  const isCourseEnrolled = (courseId) => {
+    return enrolledCourses.some((course) => course.id === courseId);
+  };
+
+  const handleEnrollToggle = (course) => {
+    if (isCourseEnrolled(course.id)) {
+      // Dispatch the removeEnrollment action if already enrolled
+      dispatch(removeEnrollment(course.id));
+    } else {
+      // Dispatch the enrollCourse action if not enrolled
+      dispatch(enrollCourse(course));
+    }
   };
 
   return (
@@ -38,6 +56,10 @@ const CourseList = () => {
             <Link to={`/course/${course.id}`}>
               {course.name} - {course.instructor}
             </Link>
+            <p>Status: {course.enrollmentStatus}</p>
+            <button onClick={() => handleEnrollToggle(course)}>
+              {isCourseEnrolled(course.id) ? 'Unenroll' : 'Enroll'}
+            </button>
           </li>
         ))}
       </ul>
