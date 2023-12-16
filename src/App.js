@@ -8,9 +8,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact component={CourseList} />
-        <Route path="/course/:id" component={CourseDetails} />
-        <Route path="/dashboard" component={StudentDashboard} />
+        <Route path="/" element={<CourseList />} />
+        <Route path="/course/:id" element={<CourseDetails />} />
+        <Route path="/dashboard" element={<StudentDashboard />} />
       </Routes>
     </Router>
   );
