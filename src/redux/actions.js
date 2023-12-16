@@ -1,22 +1,11 @@
-// Define your Redux actions here
+// actions.js
 
-// Action Types
-export const FETCH_COURSES_SUCCESS = 'FETCH_COURSES_SUCCESS';
-export const ENROLL_COURSE_SUCCESS = 'ENROLL_COURSE_SUCCESS';
-export const MARK_COURSE_COMPLETED_SUCCESS = 'MARK_COURSE_COMPLETED_SUCCESS';
-
-// Action Creators
-export const fetchCoursesSuccess = (courses) => ({
-  type: FETCH_COURSES_SUCCESS,
-  payload: courses,
-});
-
-export const enrollCourseSuccess = (course) => ({
-  type: ENROLL_COURSE_SUCCESS,
+export const enrollCourse = (course) => ({
+  type: 'ENROLL_COURSE',
   payload: course,
 });
 
-export const markCourseCompletedSuccess = (courseId) => ({
-  type: MARK_COURSE_COMPLETED_SUCCESS,
+export const removeEnrollment = (courseId) => ({
+  type: 'REMOVE_ENROLLMENT',
   payload: courseId,
 });

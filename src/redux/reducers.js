@@ -1,39 +1,30 @@
-// Define your Redux reducers here
-import {
-  FETCH_COURSES_SUCCESS,
-  ENROLL_COURSE_SUCCESS,
-  MARK_COURSE_COMPLETED_SUCCESS,
-} from './actions';
+// reducers.js
+
+import courseModel from "../courseModel";
 
 const initialState = {
-  courses: [],
+  allCourses: courseModel, // Initialize allCourses with the provided data
   enrolledCourses: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_COURSES_SUCCESS:
-      return {
-        ...state,
-        courses: action.payload,
-      };
+    case 'ENROLL_COURSE':
+      // Check if the course is already enrolled
+      if (state.enrolledCourses.some((course) => course.id === action.payload.id)) {
+        alert('You are already enrolled in this course.');
+        return state;
+      }
 
-    case ENROLL_COURSE_SUCCESS:
       return {
         ...state,
         enrolledCourses: [...state.enrolledCourses, action.payload],
       };
-
-    case MARK_COURSE_COMPLETED_SUCCESS:
+    case 'REMOVE_ENROLLMENT':
       return {
         ...state,
-        enrolledCourses: state.enrolledCourses.map((course) =>
-          course.id === action.payload
-            ? { ...course, completed: true }
-            : course
-        ),
+        enrolledCourses: state.enrolledCourses.filter((course) => course.id !== action.payload),
       };
-
     default:
       return state;
   }
