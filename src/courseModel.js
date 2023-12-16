@@ -1,4 +1,4 @@
-const courseModel = {
+const courseModel = [{
   id: 1,
   name: 'Introduction to React Native',
   instructor: 'John Doe',
@@ -35,6 +35,6 @@ const courseModel = {
     },
     // Additional enrolled students...
   ],
-};
+}]
 
 export default courseModel;

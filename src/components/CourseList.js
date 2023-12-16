@@ -8,13 +8,13 @@ const CourseList = () => {
 
   useEffect(() => {
     // Fetch courses from courseModel (dummy data)
-    setCourses(courseModel.students); // Replace with actual data
+    setCourses(courseModel); // Replace with actual data
   }, []);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     // Filter courses based on search term for name or instructor
-    const filteredCourses = courseModel.students.filter(
+    const filteredCourses = courseModel.filter(
       (course) =>
         course.name.toLowerCase().includes(term) ||
         course.instructor.toLowerCase().includes(term)
