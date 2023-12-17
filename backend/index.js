@@ -33,7 +33,21 @@ app.get('/likes', async (req, res) => {
   const { id } = req.query;
   const coll = mongoose.connection.collection('courses');
   const result = await coll.findOne({ 'id': parseInt(id) });
-  res.json({ 'likes': result.likes })
+  return res.json({ 'likes': result.likes });
+})
+
+app.get('/allLikes', async (req, res) => {
+  const coll = mongoose.connection.collection('courses');
+  const result = await coll.find({});
+  // console.log(result.toArray());
+  const yo = await result.toArray();
+  console.log(yo);
+  const likes = {}
+  yo.map((obj)=>{
+    likes[obj.id]=obj.likes;
+  })
+  console.log(likes);
+  return res.json({ 'likes': likes });
 })
 
 app.listen(port, () => {

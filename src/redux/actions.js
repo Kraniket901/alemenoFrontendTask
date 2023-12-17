@@ -1,5 +1,3 @@
-// actions.js
-
 export const enrollCourse = (course) => ({
   type: 'ENROLL_COURSE',
   payload: course,

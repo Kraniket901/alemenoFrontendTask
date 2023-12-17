@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { enrollCourse, removeEnrollment } from '../redux/actions';
 import Card from '@mui/material/Card';
@@ -16,12 +16,26 @@ const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const [likes, setLikes] = useState(0);
   const allCourses = useSelector((state) => state.allCourses);
   const enrolledCourses = useSelector((state) => state.enrolledCourses);
 
   useEffect(() => {
     setCourses(allCourses);
   }, [allCourses]);
+
+  useEffect(() => {
+    const fetchLikes = async () => {
+      const res = await fetch(`http://localhost:5000/allLikes`, {
+        method: 'GET'
+      });
+      const result = await res.json();
+      console.log(result);
+      setLikes(result.likes);
+    }
+    fetchLikes();
+  }, []);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -88,7 +102,7 @@ const CourseList = () => {
                 {isCourseEnrolled(course.id) ? 'Unenroll' : 'Enroll'}
               </Button>
               <Typography variant="body2" color="text.secondary">
-                <FavoriteBorderIcon color='primary' /> {course.likes}
+                <FavoriteBorderIcon color='primary' /> {likes[course.id]}
               </Typography>
             </CardActions>
           </Card>

@@ -22,7 +22,7 @@ const saveState = (state) => {
 
 const initialState = {
   allCourses: courseModel,
-  enrolledCourses: loadState()?.enrolledCourses || [], // Load enrolled courses from storage
+  enrolledCourses: loadState()?.enrolledCourses || [],
   completedCourses: [],
 };
 
@@ -71,7 +71,7 @@ const rootReducer = (state = initialState, action) => {
       nextState = state;
   }
 
-  saveState(nextState); // Save state to storage after each action
+  saveState(nextState);
   return nextState;
 };
 

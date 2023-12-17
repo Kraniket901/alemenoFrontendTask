@@ -29,7 +29,7 @@ const CourseDetails = () => {
 
   useEffect(() => {
     const fetchLikes = async () => {
-      const res = await fetch('http://localhost:5000/likes?id=${id}', {
+      const res = await fetch(`http://localhost:5000/likes?id=${id}`, {
         method: 'GET'
       });
       const result = await res.json();
@@ -95,6 +95,7 @@ const CourseDetails = () => {
                   <p className='py-1'><CalendarMonthIcon/>&nbsp;<b>Schedule :</b> {course.schedule}</p>
                   <p className='py-1'><LocationOnIcon/>&nbsp;<b>Location : </b>{course.location}</p>
                   <p className='py-1'><BeenhereIcon/>&nbsp;<b>Prerequisites :</b> {course.prerequisites.join(', ')}</p>
+                  <p className='py-1'><BeenhereIcon/>&nbsp;<b>Likes :</b> {likes}</p>
                 </Typography>
               </CardContent>
             </CardActionArea>
