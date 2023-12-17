@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { enrollCourse, removeEnrollment } from '../redux/actions';
 import Card from '@mui/material/Card';
@@ -16,7 +16,6 @@ const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
-  const { id } = useParams();
   const [likes, setLikes] = useState(0);
   const allCourses = useSelector((state) => state.allCourses);
   const enrolledCourses = useSelector((state) => state.enrolledCourses);

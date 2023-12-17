@@ -13,6 +13,7 @@ import AlarmOnIcon from '@mui/icons-material/AlarmOn';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Button, CardActionArea, CardActions, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 const CourseDetails = () => {
@@ -21,11 +22,6 @@ const CourseDetails = () => {
   const allCourses = useSelector((state) => state.allCourses);
   const enrolledCourses = useSelector((state) => state.enrolledCourses);
   const [likes, setLikes] = useState(0);
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -95,7 +91,7 @@ const CourseDetails = () => {
                   <p className='py-1'><CalendarMonthIcon/>&nbsp;<b>Schedule :</b> {course.schedule}</p>
                   <p className='py-1'><LocationOnIcon/>&nbsp;<b>Location : </b>{course.location}</p>
                   <p className='py-1'><BeenhereIcon/>&nbsp;<b>Prerequisites :</b> {course.prerequisites.join(', ')}</p>
-                  <p className='py-1'><BeenhereIcon/>&nbsp;<b>Likes :</b> {likes}</p>
+                  <p className='py-1'><FavoriteBorderIcon/>&nbsp;<b>Likes :</b> {likes}</p>
                 </Typography>
               </CardContent>
             </CardActionArea>

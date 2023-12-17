@@ -13,15 +13,6 @@ async function connectToDatabase() {
   }
 }
 
-async function closeDatabaseConnection() {
-  try {
-    await mongoose.connection.close();
-    console.log("Disconnected from MongoDB");
-  } catch (error) {
-    console.log("Error disconnecting from MongoDB:", error);
-  }
-}
-
 app.use(cors());
 app.use(express.json());
 
@@ -39,14 +30,11 @@ app.get('/likes', async (req, res) => {
 app.get('/allLikes', async (req, res) => {
   const coll = mongoose.connection.collection('courses');
   const result = await coll.find({});
-  // console.log(result.toArray());
   const yo = await result.toArray();
-  console.log(yo);
   const likes = {}
   yo.map((obj)=>{
     likes[obj.id]=obj.likes;
   })
-  console.log(likes);
   return res.json({ 'likes': likes });
 })
 

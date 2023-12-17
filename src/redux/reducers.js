@@ -55,16 +55,16 @@ const rootReducer = (state = initialState, action) => {
       console.log('Updated Completed Courses:', nextState.completedCourses);
       break;
 
-      case 'REMOVE_COURSE_FROM_COMPLETED':
-  const removedCompletedCourseId = action.payload;
-  nextState = {
-    ...state,
-    completedCourses: state.completedCourses.filter((id) => id !== removedCompletedCourseId),
-    enrolledCourses: state.enrolledCourses.map((course) =>
-      course.id === removedCompletedCourseId ? { ...course, completed: false } : course
-    ),
-  };
-  break;
+    case 'REMOVE_COURSE_FROM_COMPLETED':
+      const removedCompletedCourseId = action.payload;
+      nextState = {
+        ...state,
+        completedCourses: state.completedCourses.filter((id) => id !== removedCompletedCourseId),
+        enrolledCourses: state.enrolledCourses.map((course) =>
+          course.id === removedCompletedCourseId ? { ...course, completed: false } : course
+        ),
+      };
+      break;
 
 
     default:
