@@ -66,13 +66,13 @@ const CourseDetails = () => {
       <Link to="/" className='inline-block'><p className='ml-[20px] text-blue-600'><ArrowBackIcon/>&nbsp;Back to Course List</p></Link>
       <div className='flex flex-wrap justify-center'>
         <div className='m-2 lg:m-5'>
-          <Card sx={{ width: "1000px" }}>
+          <Card sx={{ width: "900px" }}>
             <CardActionArea>
               <CardMedia
                 component="img"
                 height="140"
                 image={course.thumbnail}
-                alt="green iguana"
+                alt="Course Thumbnail"
               />
               <CardContent>
                 <div className='flex justify-between'>
@@ -102,7 +102,7 @@ const CourseDetails = () => {
         </div>
         <div className='m-2 lg:m-5'>
           <Typography gutterBottom variant="h4" component="div">
-            <b>Syllabus</b>
+            <b>SYLLABUS</b>
           </Typography>
           <TableContainer component={Paper}>
             <Table sx={{ width: "100%" }} aria-label="simple table">
@@ -123,7 +123,7 @@ const CourseDetails = () => {
                     <TableCell component="th" scope="row">
                       {week.topic}
                     </TableCell>
-                    <TableCell>{week.content}</TableCell>
+                    <TableCell style={{display:"flex", flexWrap:"wrap"}}>{week.content}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -41,12 +41,12 @@ const StudentDashboard = () => {
 
         <div className='flex flex-wrap justify-start'>
           {enrolledCourses.map((course) => (
-            <Card sx={{ width: 400, margin: 2 }} key={course.id} >
+            <Card sx={{ width: 430, margin: 2 }} key={course.id} >
               <Link to={`/course/${course.id}`}>
                 <CardMedia
-                  sx={{ height: 240 }}
+                  sx={{ height: 230 }}
                   image={course.thumbnail}
-                  title="green iguana"
+                  title="Course Thumbnail"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -90,12 +90,12 @@ const StudentDashboard = () => {
           {completedCourses.map((courseId) => {
             const course = allCourses.find((c) => c.id === courseId);
             return (
-              <Card sx={{ width: 400, margin: 2 }} key={course.id} >
+              <Card sx={{ width: 430, margin: 2 }} key={course.id} >
                 <Link to={`/course/${course.id}`}>
                   <CardMedia
-                    sx={{ height: 240 }}
+                    sx={{ height: 230 }}
                     image={course.thumbnail}
-                    title="green iguana"
+                    title="Course Thumbnail"
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

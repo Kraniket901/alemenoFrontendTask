@@ -1,5 +1,3 @@
-// reducers.js
-
 import courseModel from "../courseModel";
 
 const loadState = () => {
@@ -19,7 +17,6 @@ const saveState = (state) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('reduxState', serializedState);
   } catch (err) {
-    // Handle potential errors while saving state
   }
 };
 
